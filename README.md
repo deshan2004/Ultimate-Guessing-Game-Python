@@ -1,32 +1,56 @@
-# The Ultimate Guessing Game Challenge 🎮
+# 🎮 The Ultimate Guessing Game Challenge
 
-This project is a comprehensive, menu-driven Python application developed as part of the **EC1451 Fundamentals of Programming** assignment. It showcases structured programming techniques, input validation, and modular function design[cite: 2].
+A feature-rich, menu-driven Python application featuring three unique mini-games designed to test your logic and intuition. Built with clean code practices, robust input validation, and a modular architecture.
 
-## 🚀 Games Included
+---
 
-### 1. Number Guessing Game
-- Features three difficulty levels: **Easy** (1-50, Unlimited tries), **Medium** (1-100, 10 tries), and **Hard** (1-500, 5 tries).
-- Provides real-time feedback such as "Too high" or "Too low".
+## 🚀 Featured Games
 
-### 2. Word Guessing Game[cite: 1]
-- A "Wordman" style game where you guess a hidden word from a random list[cite: 1].
-- After each attempt, the system reveals correctly positioned letters and hides the rest using underscores[cite: 1].
-- Maximum 5 attempts allowed[cite: 1].
+### 1. Number Guessing 🎯
+- **Levels**: Choose from **Easy** (1-50), **Medium** (1-100), or **Hard** (1-500)[cite: 1].
+- **Adaptive Tries**: Attempts vary by difficulty—from unlimited to just 5 tries for the ultimate challenge[cite: 1].
+- **Smart Feedback**: Real-time "Too high" or "Too low" hints to guide your next move[cite: 1].
 
-### 3. Code Breaker (Mystery Code Game)[cite: 1]
-- Crack a randomly generated 4-digit secret code within 10 tries[cite: 1].
-- Advanced hint logic: Tells you if a digit is correct and in the right place, or correct but in the wrong place[cite: 1].
+### 2. Word Scramble (Wordman Style) 🔠
+- Guess a hidden word selected randomly from an internal library[cite: 1].
+- **Visual Progress**: After each guess, correctly positioned letters are revealed while others remain hidden (e.g., `P _ T _ O _`)[cite: 1].
+- **Constraint**: You have a maximum of 5 attempts to save the word[cite: 1].
 
-## 📊 Core Features
-- **Player Score Management**: Tracks the player's name, total score, and total games won[cite: 1].
-- **Dynamic Scoring System**: Awards 10 points for Number Guessing, 20 for Word Guessing, and 30 for Code Breaker[cite: 1].
-- **Modular Design**: Built using specific functions like `update_score()` and `display_player()` as per assignment requirements[cite: 1].
-- **Robust Input Handling**: Includes error checking for non-numeric inputs and incorrect code/word lengths[cite: 2].
+### 3. Code Breaker (Mystery Code) 🔐
+- Crack a randomly generated **4-digit secret code** within 10 attempts[cite: 1].
+- **Logic-Based Hints**:
+  - Tells you if a digit is correct and in the **right place**[cite: 1].
+  - Tells you if a digit is correct but in the **wrong place**[cite: 1].
 
-## 🛠️ How to Run
-1. Make sure you have **Python 3.x** installed on your system.
-2. Download the `guessing_game.py` file.
-3. Open your terminal or VS Code.
-4. Run the program using:
-   ```bash
-   python guessing_game.py
+---
+
+## 📊 Core Functionality
+*   **Persistent Scoring**: Tracks your name, total points, and games won throughout the session[cite: 1].
+*   **Dynamic Rewards**: Points are awarded based on game complexity: 10 for Number Guess, 20 for Word Guess, and 30 for Code Breaker[cite: 1].
+*   **Error-Proof Input**: Built-in safeguards against invalid characters, symbols, or incorrect input lengths to ensure a smooth experience[cite: 2].
+*   **Modular Architecture**: Organized into specific functions for high readability and easy maintenance[cite: 1, 2].
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+*   **Python 3.x** must be installed on your machine.
+
+### Installation & Execution
+1.  **Download** the `guessing_game.py` file.
+2.  Open your **Terminal** or **VS Code**.
+3.  Navigate to the file directory and run:
+    ```bash
+    python guessing_game.py
+    ```
+
+---
+
+## 🧠 Technical Highlights
+*   **Structured Programming**: Employs function-based modularity for clean logic separation[cite: 2].
+*   **Algorithm Efficiency**: Implements a two-pass logic check for the Code Breaker hints to ensure accurate matching[cite: 1].
+*   **Input Sanitization**: Uses `try-except` blocks and string methods to handle edge cases and prevent crashes[cite: 2].
+
+---
+*Created with ❤️ by [DESHAN SIRIWARDHANA]*
