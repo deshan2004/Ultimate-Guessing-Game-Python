@@ -7,28 +7,28 @@ A feature-rich, menu-driven Python application featuring three unique mini-games
 ## 🚀 Featured Games
 
 ### 1. Number Guessing 🎯
-- **Levels**: Choose from **Easy** (1-50), **Medium** (1-100), or **Hard** (1-500)[cite: 1].
-- **Adaptive Tries**: Attempts vary by difficulty—from unlimited to just 5 tries for the ultimate challenge[cite: 1].
-- **Smart Feedback**: Real-time "Too high" or "Too low" hints to guide your next move[cite: 1].
+- **Levels**: Choose from **Easy** (1-50), **Medium** (1-100), or **Hard** (1-500).
+- **Adaptive Tries**: Attempts vary by difficulty—from unlimited to just 5 tries for the ultimate challenge.
+- **Smart Feedback**: Real-time "Too high" or "Too low" hints to guide your next move.
 
 ### 2. Word Scramble (Wordman Style) 🔠
-- Guess a hidden word selected randomly from an internal library[cite: 1].
-- **Visual Progress**: After each guess, correctly positioned letters are revealed while others remain hidden (e.g., `P _ T _ O _`)[cite: 1].
-- **Constraint**: You have a maximum of 5 attempts to save the word[cite: 1].
+- Guess a hidden word selected randomly from an internal library.
+- **Visual Progress**: After each guess, correctly positioned letters are revealed while others remain hidden (e.g., `P _ T _ O _`).
+- **Constraint**: You have a maximum of 5 attempts to save the word.
 
 ### 3. Code Breaker (Mystery Code) 🔐
-- Crack a randomly generated **4-digit secret code** within 10 attempts[cite: 1].
+- Crack a randomly generated **4-digit secret code** within 10 attempts.
 - **Logic-Based Hints**:
-  - Tells you if a digit is correct and in the **right place**[cite: 1].
-  - Tells you if a digit is correct but in the **wrong place**[cite: 1].
+  - Tells you if a digit is correct and in the **right place**.
+  - Tells you if a digit is correct but in the **wrong place**.
 
 ---
 
 ## 📊 Core Functionality
-*   **Persistent Scoring**: Tracks your name, total points, and games won throughout the session[cite: 1].
-*   **Dynamic Rewards**: Points are awarded based on game complexity: 10 for Number Guess, 20 for Word Guess, and 30 for Code Breaker[cite: 1].
-*   **Error-Proof Input**: Built-in safeguards against invalid characters, symbols, or incorrect input lengths to ensure a smooth experience[cite: 2].
-*   **Modular Architecture**: Organized into specific functions for high readability and easy maintenance[cite: 1, 2].
+*   **Persistent Scoring**: Tracks your name, total points, and games won throughout the session.
+*   **Dynamic Rewards**: Points are awarded based on game complexity: 10 for Number Guess, 20 for Word Guess, and 30 for Code Breaker.
+*   **Error-Proof Input**: Built-in safeguards against invalid characters, symbols, or incorrect input lengths to ensure a smooth experience.
+*   **Modular Architecture**: Organized into specific functions for high readability and easy maintenance.
 
 ---
 
