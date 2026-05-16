@@ -7,242 +7,287 @@ from games import (
     code_breaker_game, check_code_breaker
 )
 
-def apply_dark_theme_css():
-    """Apply dark theme with neon accents and glassmorphism"""
+def apply_modern_theme():
+    """Apply clean, professional styling"""
     st.markdown("""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
         
         .stApp {
-            background: radial-gradient(circle at 10% 20%, #0a0a0f 0%, #0f0f1a 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
         }
         
-        /* Animated neon title */
-        @keyframes neonPulse {
-            0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #0ff; }
-            100% { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 10px #0ff, 0 0 15px #0ff; }
+        /* Main container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
         
-        .title-text {
+        /* Page title */
+        .page-title {
             text-align: center;
-            font-size: 56px;
-            font-weight: 900;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: neonPulse 1.5s ease-in-out infinite alternate;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        /* Glassmorphic card */
-        .game-card {
-            background: rgba(20, 20, 35, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 30px;
-            padding: 28px 20px;
-            margin: 18px 0;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        /* Modern card */
+        .modern-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: #0ff;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+        .modern-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         
-        /* Stats card with neon border */
+        /* Stats card */
         .stats-card {
-            background: rgba(10, 10, 25, 0.8);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            padding: 25px 15px;
-            color: #fff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
             text-align: center;
-            border: 1px solid #ff00cc;
-            box-shadow: 0 0 20px rgba(255, 0, 204, 0.2);
-            margin: 10px 0;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
-        /* Buttons - neon style */
+        .stats-card h2, .stats-card h3, .stats-card p {
+            color: white;
+            margin: 0.5rem 0;
+        }
+        
+        /* Buttons */
         .stButton > button {
-            background: linear-gradient(90deg, #ff00cc, #3333ff);
+            background: #4f46e5;
             color: white;
             border: none;
-            border-radius: 50px;
-            padding: 12px 28px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
             width: 100%;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .stButton > button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px #0ff, 0 0 30px #ff00cc;
-            background: linear-gradient(90deg, #ff3399, #4444ff);
+            background: #4338ca;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
-        /* Success/Error messages */
-        .success-message {
-            background: linear-gradient(135deg, #00b4db, #0083b0);
-            padding: 18px;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            animation: slideIn 0.5s;
-            box-shadow: 0 0 20px #00b4db;
-            color: #fff;
-        }
-        
-        .error-message {
-            background: linear-gradient(135deg, #ff416c, #ff4b2b);
-            padding: 18px;
-            border-radius: 20px;
-            text-align: center;
-            font-weight: bold;
-            color: white;
-            animation: shake 0.5s;
-            box-shadow: 0 0 20px #ff416c;
-        }
-        
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes shake {
-            0%,100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
+        .stButton > button:active {
+            transform: translateY(0);
         }
         
         /* Input fields */
-        .stNumberInput input, .stTextInput input {
-            background: rgba(20, 20, 40, 0.9);
-            border: 1px solid #0ff;
-            border-radius: 50px;
-            padding: 10px 20px;
-            color: #0ff;
-            font-size: 16px;
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input {
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: border-color 0.2s;
         }
         
-        .stNumberInput input:focus, .stTextInput input:focus {
-            border-color: #ff00cc;
-            box-shadow: 0 0 15px #ff00cc;
+        .stTextInput > div > div > input:focus,
+        .stNumberInput > div > div > input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
         }
         
         /* Metrics */
         .stMetric {
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            border-radius: 20px;
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 12px;
             text-align: center;
-            border: 1px solid #0ff;
+            border: 1px solid #e5e7eb;
         }
-        .stMetric label, .stMetric div {
-            color: #0ff !important;
+        
+        .stMetric label {
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .stMetric div {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4f46e5;
+        }
+        
+        /* Success/Error messages */
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin: 1rem 0;
+            animation: slideIn 0.3s;
+        }
+        
+        .error-message {
+            background: #ef4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin: 1rem 0;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            color: #1e293b;
         }
         
         /* Progress bar */
         .stProgress > div > div {
-            background: linear-gradient(90deg, #ff00cc, #0ff);
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
             border-radius: 20px;
-        }
-        
-        /* Sidebar */
-        .css-1d391kg, .css-12oz5g0 {
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(16px);
         }
         
         /* Radio buttons */
         .stRadio > div {
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            border-radius: 20px;
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        /* Achievement badges */
+        .achievement-badge {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            color: #92400e;
+            transition: all 0.2s;
+            border: 1px solid #fcd34d;
+        }
+        
+        .achievement-locked {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            color: #6b7280;
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            color: #888;
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 14px;
+            color: #ffffff;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            font-size: 0.875rem;
+            opacity: 0.9;
         }
         
-        /* Achievement badges */
-        .achievement-badge {
-            background: linear-gradient(135deg, #f5af19, #f12711);
-            border-radius: 20px;
-            padding: 15px;
-            margin: 8px;
-            color: white;
+        /* Sidebar */
+        .css-1d391kg, .css-12oz5g0 {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        hr {
+            margin: 1rem 0;
+            border: none;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        /* Game hint area */
+        .game-hint {
+            background: #f0fdf4;
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 1.1rem;
             text-align: center;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(245,175,25,0.5);
+            margin: 1rem 0;
         }
         
-        /* Info box */
-        .info-box {
-            background: rgba(0, 255, 255, 0.1);
-            border-left: 5px solid #0ff;
-            padding: 15px 20px;
-            border-radius: 15px;
-            margin: 10px 0;
-            color: #fff;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            .modern-card {
+                padding: 1.2rem;
+            }
         }
     </style>
     """, unsafe_allow_html=True)
 
 def login_page():
-    apply_dark_theme_css()
+    apply_modern_theme()
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        st.markdown('<p class="title-text">🎮 ULTIMATE GUESSING GAME 🎮</p>', unsafe_allow_html=True)
+        st.markdown('<h1 class="page-title">Ultimate Guessing Game</h1>', unsafe_allow_html=True)
         with st.container():
-            st.markdown('<div class="game-card">', unsafe_allow_html=True)
-            st.markdown("### 🌟 Welcome, Adventurer! 🌟")
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("### Welcome, Adventurer!")
             st.markdown("---")
-            st.markdown("#### Enter your name to begin your quest:")
-            name = st.text_input("", key="login_name", placeholder="Your epic name here...", label_visibility="collapsed")
-            if st.button("🚀 START ADVENTURE", use_container_width=True):
+            st.markdown("#### Enter your name to begin:")
+            name = st.text_input("", key="login_name", placeholder="Your name...", label_visibility="collapsed")
+            if st.button("Start Game", use_container_width=True):
                 if name and name.strip():
                     st.session_state.player_name = name.strip()
                     st.session_state.page = "main_menu"
-                    show_toast(f"Welcome, {name}! Your adventure awaits! ✨", "success")
+                    show_toast(f"Welcome, {name}! Let the games begin! ✨", "success")
                     st.rerun()
                 else:
-                    show_toast("Please enter a name to continue!", "warning")
+                    show_toast("Please enter your name to continue!", "warning")
             st.markdown('</div>', unsafe_allow_html=True)
 
 def main_menu():
-    apply_dark_theme_css()
+    apply_modern_theme()
+    
     # Sidebar stats
     st.sidebar.markdown(f"""
     <div class='stats-card'>
-        <h2>👤 {st.session_state.player_name}</h2>
+        <h2>{st.session_state.player_name}</h2>
         <hr>
-        <h1 style='font-size: 48px;'>🏆 {st.session_state.total_score}</h1>
+        <h1 style='font-size: 3rem; margin: 0.5rem 0;'>{st.session_state.total_score}</h1>
         <p>Total Score</p>
-        <h3>🎮 {st.session_state.games_won}</h3>
+        <h3>{st.session_state.games_won}</h3>
         <p>Games Won</p>
-        <p>📊 {st.session_state.total_games_played}</p>
+        <p>{st.session_state.total_games_played}</p>
         <p>Total Games</p>
     </div>
     """, unsafe_allow_html=True)
@@ -251,31 +296,33 @@ def main_menu():
         win_rate = (st.session_state.games_won / st.session_state.total_games_played) * 100
         st.sidebar.markdown(f"""
         <div class='info-box'>
-            📈 Win Rate: {win_rate:.1f}%<br>
-            ⭐ Level: {min(99, st.session_state.total_score // 100 + 1)}
+            <strong>📈 Win Rate:</strong> {win_rate:.1f}%<br>
+            <strong>⭐ Level:</strong> {min(99, st.session_state.total_score // 100 + 1)}
         </div>
         """, unsafe_allow_html=True)
     
-    st.markdown('<p class="title-text">🎯 CHOOSE YOUR CHALLENGE 🎯</p>', unsafe_allow_html=True)
+    st.markdown('<h1 class="page-title">Choose Your Challenge</h1>', unsafe_allow_html=True)
+    
     col1, col2 = st.columns(2)
     
     with col1:
         with st.container():
-            st.markdown('<div class="game-card">', unsafe_allow_html=True)
-            st.markdown("### 🔢 NUMBER GUESSING")
-            st.markdown("*Test your intuition and guessing skills!*")
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("### 🔢 Number Guessing")
+            st.markdown("*Test your intuition and guessing skills*")
             st.markdown("**Points:** 5-20 | **Difficulty:** Selectable")
-            if st.button("🎲 Play Number Game", use_container_width=True):
+            if st.button("Play Number Game", use_container_width=True, key="num_btn"):
                 reset_game_state()
                 st.session_state.page = "number_game"
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
+        
         with st.container():
-            st.markdown('<div class="game-card">', unsafe_allow_html=True)
-            st.markdown("### 🔐 CODE BREAKER")
-            st.markdown("*Crack the secret 4-digit code!*")
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("### 🔐 Code Breaker")
+            st.markdown("*Crack the secret 4-digit code*")
             st.markdown("**Points:** 30 | **Attempts:** 10")
-            if st.button("🔓 Play Code Breaker", use_container_width=True):
+            if st.button("Play Code Breaker", use_container_width=True, key="code_btn"):
                 reset_game_state()
                 st.session_state.page = "code_breaker"
                 st.rerun()
@@ -283,27 +330,28 @@ def main_menu():
     
     with col2:
         with st.container():
-            st.markdown('<div class="game-card">', unsafe_allow_html=True)
-            st.markdown("### 📝 WORD GUESSING")
-            st.markdown("*Expand your vocabulary!*")
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("### 📝 Word Guessing")
+            st.markdown("*Expand your vocabulary*")
             st.markdown("**Points:** 20 | **Attempts:** 6")
-            if st.button("📖 Play Word Game", use_container_width=True):
+            if st.button("Play Word Game", use_container_width=True, key="word_btn"):
                 reset_game_state()
                 st.session_state.page = "word_game"
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
+        
         with st.container():
-            st.markdown('<div class="game-card">', unsafe_allow_html=True)
-            st.markdown("### 📊 STATISTICS & ACHIEVEMENTS")
-            st.markdown("*View your progress and earned badges!*")
-            if st.button("🏆 View Stats", use_container_width=True):
+            st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+            st.markdown("### 📊 Statistics")
+            st.markdown("*View your progress and achievements*")
+            if st.button("View Stats", use_container_width=True, key="stats_btn"):
                 st.session_state.page = "stats"
                 st.rerun()
             st.markdown('</div>', unsafe_allow_html=True)
     
     colb1, colb2, colb3 = st.columns([1,2,1])
     with colb2:
-        if st.button("🚪 Exit Game", use_container_width=True):
+        if st.button("Exit Game", use_container_width=True):
             st.balloons()
             st.markdown('<div class="success-message">Thanks for playing! Come back soon! 👋</div>', unsafe_allow_html=True)
             time.sleep(2)
@@ -313,20 +361,20 @@ def main_menu():
             init_session_state()
             st.rerun()
     
-    st.markdown('<div class="footer">🎮 Made with Streamlit | Challenge your mind! 🎮</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">Made with Streamlit | Challenge your mind</div>', unsafe_allow_html=True)
 
 def number_game_page():
-    apply_dark_theme_css()
-    st.markdown('<p class="title-text">🔢 NUMBER GUESSING CHALLENGE</p>', unsafe_allow_html=True)
+    apply_modern_theme()
+    st.markdown('<h1 class="page-title">Number Guessing Challenge</h1>', unsafe_allow_html=True)
     
     if not st.session_state.game_started:
-        st.markdown('<div class="game-card">', unsafe_allow_html=True)
-        st.markdown("### Select Your Difficulty")
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.markdown("### Select Difficulty")
         difficulty = st.radio(
             "",
-            ["🌿 Easy (1-50, ∞ attempts, 5 pts)", 
-             "⚡ Medium (1-100, 10 attempts, 10 pts)", 
-             "🔥 Hard (1-500, 5 attempts, 20 pts)"],
+            ["Easy (1-50, ∞ attempts, 5 pts)", 
+             "Medium (1-100, 10 attempts, 10 pts)", 
+             "Hard (1-500, 5 attempts, 20 pts)"],
             horizontal=True,
             label_visibility="collapsed"
         )
@@ -336,7 +384,8 @@ def number_game_page():
             diff = "medium"
         else:
             diff = "hard"
-        if st.button("🎯 Start Game", use_container_width=True):
+        
+        if st.button("Start Game", use_container_width=True):
             number_guessing_game(diff)
             show_toast("Game started! Make your first guess!", "info")
             st.rerun()
@@ -354,13 +403,14 @@ def number_game_page():
         with col3:
             st.metric("Points at stake", points)
         
-        if max_att != float('inf'):
-            progress = ((max_att - st.session_state.attempts_left) / max_att)
+        if max_att != float('inf') and max_att > 0:
+            progress = (max_att - st.session_state.attempts_left) / max_att
             st.progress(progress)
         
         with st.form(key="number_form"):
             guess = st.number_input("Enter your guess:", min_value=low, max_value=high, step=1, key="num_guess")
-            submitted = st.form_submit_button("🔍 Submit Guess", use_container_width=True)
+            submitted = st.form_submit_button("Submit Guess", use_container_width=True)
+            
             if submitted:
                 result = check_number_guess(guess)
                 if result[0] == "win":
@@ -368,7 +418,7 @@ def number_game_page():
                     st.balloons()
                     st.markdown(f"""
                     <div class='success-message'>
-                        🎉 PERFECT! You guessed it in {result[1]} tries!<br>
+                        🎉 Perfect! You guessed it in {result[1]} tries!<br>
                         +{result[2]} points!<br>
                         Total Score: {st.session_state.total_score}
                     </div>
@@ -381,7 +431,7 @@ def number_game_page():
                     record_game_result(False, 0, "Number Game")
                     st.markdown(f"""
                     <div class='error-message'>
-                        💀 GAME OVER! The number was {result[1]} 💀
+                        💀 Game Over! The number was {result[1]} 💀
                     </div>
                     """, unsafe_allow_html=True)
                     time.sleep(2)
@@ -395,7 +445,7 @@ def number_game_page():
                         st.warning(f"📈 Too High! {result[2]}")
                     st.rerun()
         
-        if st.button("🏳️ Give Up", use_container_width=True):
+        if st.button("Give Up", use_container_width=True):
             record_game_result(False, 0, "Number Game")
             st.markdown(f"""
             <div class='error-message'>
@@ -408,8 +458,8 @@ def number_game_page():
             st.rerun()
 
 def word_game_page():
-    apply_dark_theme_css()
-    st.markdown('<p class="title-text">📝 WORD GUESSING CHALLENGE</p>', unsafe_allow_html=True)
+    apply_modern_theme()
+    st.markdown('<h1 class="page-title">Word Guessing Challenge</h1>', unsafe_allow_html=True)
     
     if not st.session_state.game_started:
         word_guessing_game()
@@ -422,16 +472,20 @@ def word_game_page():
     with col2:
         st.metric("Attempts Left", attempts)
     
-    st.markdown('<div class="game-card">', unsafe_allow_html=True)
+    st.markdown('<div class="modern-card">', unsafe_allow_html=True)
     if st.session_state.word_hint:
-        st.markdown(f"### 📍 Current Progress:\n{st.session_state.word_hint}")
+        st.markdown(f"### Current Progress")
+        st.markdown(f'<div class="game-hint">{st.session_state.word_hint}</div>', unsafe_allow_html=True)
     else:
-        st.markdown(f"### 📍 Current Progress:\n{'❓ ' * len(secret_word)}")
+        st.markdown(f"### Current Progress")
+        st.markdown(f'<div class="game-hint">{"❓ " * len(secret_word)}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
     with st.form(key="word_form"):
-        guess = st.text_input("Enter your guess:", max_chars=len(secret_word), key="word_guess", placeholder=f"Enter {len(secret_word)} letters").upper()
-        submitted = st.form_submit_button("📝 Check Word", use_container_width=True)
+        guess = st.text_input("Enter your guess:", max_chars=len(secret_word), key="word_guess", 
+                             placeholder=f"Enter {len(secret_word)} letters").upper()
+        submitted = st.form_submit_button("Check Word", use_container_width=True)
+        
         if submitted:
             if len(guess) != len(secret_word):
                 st.warning(f"Please enter exactly {len(secret_word)} letters!")
@@ -444,7 +498,7 @@ def word_game_page():
                     st.balloons()
                     st.markdown(f"""
                     <div class='success-message'>
-                        🎉 EXCELLENT! The word was {result[1]}!<br>
+                        🎉 Excellent! The word was {result[1]}!<br>
                         +20 points!<br>
                         Total Score: {st.session_state.total_score}
                     </div>
@@ -457,7 +511,7 @@ def word_game_page():
                     record_game_result(False, 0, "Word Game")
                     st.markdown(f"""
                     <div class='error-message'>
-                        💀 GAME OVER! The word was {result[1]} 💀
+                        💀 Game Over! The word was {result[1]} 💀
                     </div>
                     """, unsafe_allow_html=True)
                     time.sleep(2)
@@ -466,11 +520,11 @@ def word_game_page():
                     st.rerun()
                 else:
                     st.session_state.word_hint = result[1]
-                    st.info(f"🔍 HINT: {result[1]}")
-                    st.warning(f"📊 Attempts left: {result[2]}")
+                    st.info(f"Hint: {result[1]}")
+                    st.warning(f"Attempts left: {result[2]}")
                     st.rerun()
     
-    if st.button("🏳️ Give Up", use_container_width=True):
+    if st.button("Give Up", use_container_width=True):
         record_game_result(False, 0, "Word Game")
         st.markdown(f"""
         <div class='error-message'>
@@ -483,8 +537,8 @@ def word_game_page():
         st.rerun()
 
 def code_breaker_page():
-    apply_dark_theme_css()
-    st.markdown('<p class="title-text">🔐 CODE BREAKER CHALLENGE</p>', unsafe_allow_html=True)
+    apply_modern_theme()
+    st.markdown('<h1 class="page-title">Code Breaker Challenge</h1>', unsafe_allow_html=True)
     
     if not st.session_state.game_started:
         code_breaker_game()
@@ -498,15 +552,16 @@ def code_breaker_page():
         st.metric("Attempts Left", attempts)
     
     if st.session_state.code_history:
-        st.markdown('<div class="game-card">', unsafe_allow_html=True)
-        st.markdown("### 📜 Guess History")
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
+        st.markdown("### Guess History")
         for item in st.session_state.code_history[-5:]:
             st.code(item, language="text")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with st.form(key="code_form"):
         guess = st.text_input("Enter 4-digit code:", max_chars=4, key="code_guess", placeholder="e.g., 1234")
-        submitted = st.form_submit_button("🔐 Crack Code", use_container_width=True)
+        submitted = st.form_submit_button("Crack Code", use_container_width=True)
+        
         if submitted:
             if len(guess) != 4 or not guess.isdigit():
                 st.warning("Please enter exactly 4 digits (0-9)!")
@@ -517,7 +572,7 @@ def code_breaker_page():
                     st.balloons()
                     st.markdown(f"""
                     <div class='success-message'>
-                        🎉 ACCESS GRANTED! The code was {result[1]}!<br>
+                        🎉 Access Granted! The code was {result[1]}!<br>
                         +30 points!<br>
                         Total Score: {st.session_state.total_score}
                     </div>
@@ -530,7 +585,7 @@ def code_breaker_page():
                     record_game_result(False, 0, "Code Breaker")
                     st.markdown(f"""
                     <div class='error-message'>
-                        🔒 SYSTEM LOCKED! The code was {result[1]} 🔒
+                        🔒 System Locked! The code was {result[1]} 🔒
                     </div>
                     """, unsafe_allow_html=True)
                     time.sleep(2)
@@ -539,11 +594,11 @@ def code_breaker_page():
                     st.rerun()
                 else:
                     st.session_state.code_history.append(f"{guess} → {result[1]}")
-                    st.info(f"🔍 HINT: {result[1]}")
-                    st.warning(f"📊 Attempts left: {result[2]}")
+                    st.info(f"Hint: {result[1]}")
+                    st.warning(f"Attempts left: {result[2]}")
                     st.rerun()
     
-    if st.button("🏳️ Give Up", use_container_width=True):
+    if st.button("Give Up", use_container_width=True):
         record_game_result(False, 0, "Code Breaker")
         st.markdown(f"""
         <div class='error-message'>
@@ -556,12 +611,12 @@ def code_breaker_page():
         st.rerun()
 
 def stats_page():
-    apply_dark_theme_css()
-    st.markdown('<p class="title-text">📊 PLAYER STATISTICS</p>', unsafe_allow_html=True)
+    apply_modern_theme()
+    st.markdown('<h1 class="page-title">Player Statistics</h1>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown('<div class="stats-card">', unsafe_allow_html=True)
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
         st.markdown(f"### 👤 {st.session_state.player_name}")
         st.markdown(f"### 🏆 Total Score: {st.session_state.total_score}")
         st.markdown(f"### 🎮 Games Won: {st.session_state.games_won}")
@@ -569,7 +624,7 @@ def stats_page():
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div class="stats-card">', unsafe_allow_html=True)
+        st.markdown('<div class="modern-card">', unsafe_allow_html=True)
         if st.session_state.total_games_played > 0:
             win_rate = (st.session_state.games_won / st.session_state.total_games_played) * 100
             st.markdown(f"### 📈 Win Rate: {win_rate:.1f}%")
@@ -582,17 +637,17 @@ def stats_page():
         st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown("---")
-    st.markdown("### 🏅 ACHIEVEMENTS")
+    st.markdown("### 🏅 Achievements")
     
     achievements = [
-        ("🎯 First Blood", st.session_state.games_won >= 1, "Win your first game"),
-        ("⭐ Rising Star", st.session_state.games_won >= 3, "Win 3 games"),
-        ("🏅 Veteran", st.session_state.games_won >= 10, "Win 10 games"),
-        ("💰 Point Master", st.session_state.total_score >= 100, "Score 100+ points"),
-        ("💎 Elite Player", st.session_state.total_score >= 500, "Score 500+ points"),
-        ("🔢 Number Guru", "Number Game" in st.session_state.game_history, "Win number game"),
-        ("📝 Word Master", "Word Game" in st.session_state.game_history, "Win word game"),
-        ("🔐 Code Breaker Elite", "Code Breaker" in st.session_state.game_history, "Win code breaker")
+        ("First Blood", st.session_state.games_won >= 1, "Win your first game"),
+        ("Rising Star", st.session_state.games_won >= 3, "Win 3 games"),
+        ("Veteran", st.session_state.games_won >= 10, "Win 10 games"),
+        ("Point Master", st.session_state.total_score >= 100, "Score 100+ points"),
+        ("Elite Player", st.session_state.total_score >= 500, "Score 500+ points"),
+        ("Number Guru", "Number Game" in st.session_state.game_history, "Win number game"),
+        ("Word Master", "Word Game" in st.session_state.game_history, "Win word game"),
+        ("Code Breaker Elite", "Code Breaker" in st.session_state.game_history, "Win code breaker")
     ]
     
     cols = st.columns(3)
@@ -600,19 +655,19 @@ def stats_page():
         with cols[idx % 3]:
             if unlocked:
                 st.markdown(f"""
-                <div class='achievement-badge' style='background: linear-gradient(135deg, #00b4db, #0083b0); animation: none;'>
+                <div class='achievement-badge'>
                     ✅ {achievement}<br>
                     <small>{description}</small>
                 </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown(f"""
-                <div class='achievement-badge' style='background: linear-gradient(135deg, #667eea, #764ba2); opacity: 0.5; animation: none;'>
+                <div class='achievement-badge achievement-locked'>
                     🔒 {achievement}<br>
                     <small>{description}</small>
                 </div>
                 """, unsafe_allow_html=True)
     
-    if st.button("◀ Back to Main Menu", use_container_width=True):
+    if st.button("Back to Main Menu", use_container_width=True):
         st.session_state.page = "main_menu"
         st.rerun()
