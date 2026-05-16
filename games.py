@@ -1,3 +1,4 @@
+# games.py
 import streamlit as st
 import random
 
@@ -66,37 +67,32 @@ def check_word_guess(guess):
     else:
         hint = []
         secret = st.session_state.secret_word
-        # Track used positions for yellow hints
         secret_chars = list(secret)
         guess_chars = list(guess)
         
-        # First pass: mark exact matches
         for i in range(len(secret)):
             if i < len(guess) and guess[i] == secret[i]:
                 hint.append(f"✅ {guess[i]}")
                 secret_chars[i] = None
                 guess_chars[i] = None
             elif i < len(guess):
-                hint.append(None)  # placeholder
+                hint.append(None)
             else:
                 hint.append("❓ ?")
         
-        # Second pass: mark misplaced matches
         for i in range(len(secret)):
             if hint[i] is None and i < len(guess) and guess_chars[i] is not None:
                 if guess_chars[i] in secret_chars:
-                    hint[i] = f"🟡 {guess[i]}"
+                    hint[i] = f"🟡 {guess_chars[i]}"
                     secret_chars[secret_chars.index(guess_chars[i])] = None
                 else:
                     hint[i] = "❌ ?"
         
-        # Clean up any remaining None values
         hint = [h if h is not None else "❌ ?" for h in hint]
-        
         return "continue", " ".join(hint), st.session_state.word_attempts
 
 def code_breaker_game():
-    """Code breaker game implementation"""
+    """Code breaker game implementation - Fixed Typos"""
     if not st.session_state.game_started:
         st.session_state.secret_code = "".join([str(random.randint(0, 9)) for _ in range(4)])
         st.session_state.code_attempts = 10
@@ -117,13 +113,11 @@ def check_code_breaker(guess):
         temp_code = list(st.session_state.secret_code)
         temp_guess = list(guess)
         
-        # Remove exact matches
         for i in range(4):
             if temp_guess[i] == temp_code[i]:
                 temp_code[i] = None
                 temp_guess[i] = None
         
-        # Count misplaced matches
         for i in range(4):
             if temp_guess[i] is not None and temp_guess[i] in temp_code:
                 wrong_place += 1
