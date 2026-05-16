@@ -1,3 +1,4 @@
+# ui.py
 import streamlit as st
 import time
 from utils import show_toast, reset_game_state, record_game_result
@@ -261,18 +262,65 @@ def login_page():
         st.markdown('<h1 class="page-title">Ultimate Guessing Game</h1>', unsafe_allow_html=True)
         with st.container():
             st.markdown('<div class="modern-card">', unsafe_allow_html=True)
-            st.markdown("### Welcome, Adventurer!")
-            st.markdown("---")
-            st.markdown("#### Enter your name to begin:")
-            name = st.text_input("", key="login_name", placeholder="Your name...", label_visibility="collapsed")
-            if st.button("Start Game", use_container_width=True):
-                if name and name.strip():
-                    st.session_state.player_name = name.strip()
-                    st.session_state.page = "main_menu"
-                    show_toast(f"Welcome, {name}! Let the games begin! ✨", "success")
-                    st.rerun()
-                else:
-                    show_toast("Please enter your name to continue!", "warning")
+            
+            # Login & Sign Up Tabs
+            tab1, tab2 = st.tabs(["🔐 Player Login", "📝 Create Account"])
+            
+            # --- TAB 1: LOGIN ---
+            with tab1:
+                st.markdown("### Welcome, Adventurer!")
+                st.markdown("---")
+                with st.form(key="login_form"):
+                    username = st.text_input("Username:", placeholder="Enter username...", key="l_username").strip()
+                    password = st.text_input("Password:", type="password", placeholder="Enter password...", key="l_password")
+                    submit_login = st.form_submit_button("Enter Arena", use_container_width=True)
+                    
+                if submit_login:
+                    if username and password:
+                        from database import authenticate_user
+                        user_record = authenticate_user(username, password)
+                        if user_record:
+                            # MongoDB දත්ත Session State එකට ලබාදීම
+                            st.session_state.player_name = user_record["username"]
+                            st.session_state.total_score = user_record.get("total_score", 0)
+                            st.session_state.games_won = user_record.get("games_won", 0)
+                            st.session_state.total_games_played = user_record.get("total_games_played", 0)
+                            st.session_state.game_history = user_record.get("game_history", [])
+                            
+                            st.session_state.page = "main_menu"
+                            show_toast(f"Welcome back, {username}! Let the games begin! ✨", "success")
+                            st.rerun()
+                        else:
+                            show_toast("Invalid Username or Password!", "error")
+                    else:
+                        show_toast("Please enter both username and password!", "warning")
+            
+            # --- TAB 2: SIGN UP ---
+            with tab2:
+                st.markdown("### Register Account")
+                st.markdown("---")
+                with st.form(key="signup_form"):
+                    reg_username = st.text_input("Choose Username:", placeholder="e.g. GamerX", key="r_username").strip()
+                    reg_password = st.text_input("Choose Password:", type="password", placeholder="Min 4 characters", key="r_password")
+                    reg_password_conf = st.text_input("Confirm Password:", type="password", placeholder="Retype password", key="r_password_conf")
+                    submit_register = st.form_submit_button("Register Account", use_container_width=True)
+                    
+                if submit_register:
+                    if reg_username and reg_password and reg_password_conf:
+                        if reg_password != reg_password_conf:
+                            show_toast("Passwords do not match!", "error")
+                        elif len(reg_password) < 4:
+                            show_toast("Password must be at least 4 characters!", "warning")
+                        else:
+                            from database import create_user
+                            success, msg = create_user(reg_username, reg_password)
+                            if success:
+                                show_toast(f"{msg} Please log in via Login tab.", "success")
+                            else:
+                                show_toast(msg, "error")
+                    else:
+                        show_toast("Please fill in all fields!", "warning")
+                        
             st.markdown('</div>', unsafe_allow_html=True)
 
 def main_menu():

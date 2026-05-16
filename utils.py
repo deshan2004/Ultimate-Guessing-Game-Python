@@ -1,3 +1,4 @@
+# utils.py
 import streamlit as st
 import time
 
@@ -31,14 +32,22 @@ def init_session_state():
             st.session_state[key] = value
 
 def record_game_result(win, points_earned, game_name):
-    """Record game result and update statistics"""
+    """Record game result and update statistics in both Session and MongoDB"""
     st.session_state.total_games_played += 1
     if win:
         st.session_state.games_won += 1
         st.session_state.total_score += points_earned
         st.session_state.game_history.append(game_name)
-        return True
-    return False
+    
+    # පරිශීලකයා ලොග් වී ඇත්නම් MongoDB එකට දත්ත යැවීම
+    if st.session_state.player_name:
+        try:
+            from database import update_user_stats
+            update_user_stats(st.session_state.player_name, win, points_earned, game_name)
+        except Exception as e:
+            st.error(f"Failed to update cloud database: {e}")
+            
+    return win
 
 def show_toast(message, type="success"):
     """Show a styled notification"""
