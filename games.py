@@ -36,13 +36,13 @@ def check_number_guess(guess):
         hint = "too_low" if guess < st.session_state.secret_number else "too_high"
         diff = abs(guess - st.session_state.secret_number)
         if diff > 100:
-            message = "Way off! 🎯 Keep trying!"
+            message = "Way off! Keep trying!"
         elif diff > 50:
-            message = "Getting warmer! 🌡️"
+            message = "Getting warmer!"
         elif diff > 20:
-            message = "You're close! 🎯"
+            message = "You're close!"
         else:
-            message = "Very close! 🔥 Almost there!"
+            message = "Very close! Almost there!"
         return "continue", hint, message, st.session_state.attempts_left
 
 def word_guessing_game():

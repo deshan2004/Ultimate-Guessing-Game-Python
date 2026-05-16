@@ -407,11 +407,11 @@ def number_game_page():
             progress = (max_att - st.session_state.attempts_left) / max_att
             st.progress(progress)
         
-        with st.form(key="number_form"):
-            guess = st.number_input("Enter your guess:", min_value=low, max_value=high, step=1, key="num_guess")
-            submitted = st.form_submit_button("Submit Guess", use_container_width=True)
-            
-            if submitted:
+        guess = st.number_input("Enter your guess:", min_value=low, max_value=high, step=1, key="num_guess_input")
+        
+        col_btn1, col_btn2 = st.columns(2)
+        with col_btn1:
+            if st.button("Submit Guess", use_container_width=True, key="submit_guess_btn"):
                 result = check_number_guess(guess)
                 if result[0] == "win":
                     record_game_result(True, result[2], "Number Game")
@@ -445,17 +445,18 @@ def number_game_page():
                         st.warning(f"📈 Too High! {result[2]}")
                     st.rerun()
         
-        if st.button("Give Up", use_container_width=True):
-            record_game_result(False, 0, "Number Game")
-            st.markdown(f"""
-            <div class='error-message'>
-                😔 You gave up! The number was {st.session_state.secret_number}
-            </div>
-            """, unsafe_allow_html=True)
-            time.sleep(2)
-            reset_game_state()
-            st.session_state.page = "main_menu"
-            st.rerun()
+        with col_btn2:
+            if st.button("Give Up", use_container_width=True, key="give_up_btn"):
+                record_game_result(False, 0, "Number Game")
+                st.markdown(f"""
+                <div class='error-message'>
+                    😔 You gave up! The number was {st.session_state.secret_number}
+                </div>
+                """, unsafe_allow_html=True)
+                time.sleep(2)
+                reset_game_state()
+                st.session_state.page = "main_menu"
+                st.rerun()
 
 def word_game_page():
     apply_modern_theme()
@@ -481,12 +482,12 @@ def word_game_page():
         st.markdown(f'<div class="game-hint">{"❓ " * len(secret_word)}</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
-    with st.form(key="word_form"):
-        guess = st.text_input("Enter your guess:", max_chars=len(secret_word), key="word_guess", 
-                             placeholder=f"Enter {len(secret_word)} letters").upper()
-        submitted = st.form_submit_button("Check Word", use_container_width=True)
-        
-        if submitted:
+    guess = st.text_input("Enter your guess:", max_chars=len(secret_word), key="word_guess_input", 
+                         placeholder=f"Enter {len(secret_word)} letters").upper()
+    
+    col_btn1, col_btn2 = st.columns(2)
+    with col_btn1:
+        if st.button("Check Word", use_container_width=True, key="check_word_btn"):
             if len(guess) != len(secret_word):
                 st.warning(f"Please enter exactly {len(secret_word)} letters!")
             elif not guess.isalpha():
@@ -524,17 +525,18 @@ def word_game_page():
                     st.warning(f"Attempts left: {result[2]}")
                     st.rerun()
     
-    if st.button("Give Up", use_container_width=True):
-        record_game_result(False, 0, "Word Game")
-        st.markdown(f"""
-        <div class='error-message'>
-            😔 The word was {st.session_state.secret_word}
-        </div>
-        """, unsafe_allow_html=True)
-        time.sleep(2)
-        reset_game_state()
-        st.session_state.page = "main_menu"
-        st.rerun()
+    with col_btn2:
+        if st.button("Give Up", use_container_width=True, key="word_give_up_btn"):
+            record_game_result(False, 0, "Word Game")
+            st.markdown(f"""
+            <div class='error-message'>
+                😔 The word was {st.session_state.secret_word}
+            </div>
+            """, unsafe_allow_html=True)
+            time.sleep(2)
+            reset_game_state()
+            st.session_state.page = "main_menu"
+            st.rerun()
 
 def code_breaker_page():
     apply_modern_theme()
@@ -558,11 +560,11 @@ def code_breaker_page():
             st.code(item, language="text")
         st.markdown('</div>', unsafe_allow_html=True)
     
-    with st.form(key="code_form"):
-        guess = st.text_input("Enter 4-digit code:", max_chars=4, key="code_guess", placeholder="e.g., 1234")
-        submitted = st.form_submit_button("Crack Code", use_container_width=True)
-        
-        if submitted:
+    guess = st.text_input("Enter 4-digit code:", max_chars=4, key="code_guess_input", placeholder="e.g., 1234")
+    
+    col_btn1, col_btn2 = st.columns(2)
+    with col_btn1:
+        if st.button("Crack Code", use_container_width=True, key="crack_code_btn"):
             if len(guess) != 4 or not guess.isdigit():
                 st.warning("Please enter exactly 4 digits (0-9)!")
             else:
@@ -598,17 +600,18 @@ def code_breaker_page():
                     st.warning(f"Attempts left: {result[2]}")
                     st.rerun()
     
-    if st.button("Give Up", use_container_width=True):
-        record_game_result(False, 0, "Code Breaker")
-        st.markdown(f"""
-        <div class='error-message'>
-            😔 The code was {st.session_state.secret_code}
-        </div>
-        """, unsafe_allow_html=True)
-        time.sleep(2)
-        reset_game_state()
-        st.session_state.page = "main_menu"
-        st.rerun()
+    with col_btn2:
+        if st.button("Give Up", use_container_width=True, key="code_give_up_btn"):
+            record_game_result(False, 0, "Code Breaker")
+            st.markdown(f"""
+            <div class='error-message'>
+                😔 The code was {st.session_state.secret_code}
+            </div>
+            """, unsafe_allow_html=True)
+            time.sleep(2)
+            reset_game_state()
+            st.session_state.page = "main_menu"
+            st.rerun()
 
 def stats_page():
     apply_modern_theme()

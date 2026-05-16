@@ -1,6 +1,5 @@
 import streamlit as st
 import time
-import random
 
 def init_session_state():
     """Initialize all session state variables"""
