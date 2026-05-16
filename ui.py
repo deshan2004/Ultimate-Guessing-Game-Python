@@ -9,69 +9,29 @@ from games import (
 )
 
 def apply_modern_theme():
-    """Apply an elite, ultra-modern black space theme with fluid animations + gaming media"""
+    """Apply an elite, ultra-modern black space theme with bulletproof CSS to prevent black screens"""
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;&display=swap');
         
-        /* Root container overrides */
+        /* Root container stability - Smooth starfield backdrops */
         .stApp {
-            background-color: #030303 !important;
+            background-color: #05050a !important;
             background-image: 
-                radial-gradient(1px 1px at 25px 35px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 60px 120px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 150px 240px, #ffffff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 220px 60px, rgba(167, 139, 250, 0.4), rgba(0,0,0,0)),
-                radial-gradient(1.5px 1.5px at 300px 180px, rgba(96, 165, 250, 0.4), rgba(0,0,0,0));
-            background-size: 350px 350px;
+                radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #a78bfa, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 140px, #60a5fa, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 60px, rgba(167, 139, 250, 0.3), rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 280px 120px, #ffffff, rgba(0,0,0,0));
+            background-size: 300px 300px;
             background-repeat: repeat;
-            animation: spaceFloat 120s linear infinite;
+            animation: spaceAmbient 90s linear infinite;
             font-family: 'Inter', sans-serif !important;
-            position: relative;
-            overflow-x: hidden;
         }
         
-        /* BACKGROUND VIDEO - Gaming montage */
-        .bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -2;
-            object-fit: cover;
-            opacity: 0.25;
-            pointer-events: none;
-        }
-        
-        /* Floating game character images */
-        .game-character {
-            position: fixed;
-            z-index: -1;
-            width: 80px;
-            opacity: 0.2;
-            pointer-events: none;
-            animation: floatAround 25s infinite ease-in-out;
-        }
-        
-        .char1 { bottom: 10%; left: 2%; width: 100px; animation-duration: 20s; }
-        .char2 { top: 15%; right: 3%; width: 90px; animation-duration: 28s; animation-delay: -5s; }
-        .char3 { bottom: 20%; right: 8%; width: 110px; animation-duration: 22s; animation-delay: -10s; }
-        .char4 { top: 40%; left: 5%; width: 70px; animation-duration: 30s; animation-delay: -2s; }
-        
-        @keyframes floatAround {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(20px, -30px) rotate(5deg); }
-            50% { transform: translate(-15px, -50px) rotate(-5deg); }
-            75% { transform: translate(10px, -20px) rotate(3deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-        }
-        
-        @keyframes spaceFloat {
+        @keyframes spaceAmbient {
             from { background-position: 0 0; }
-            to { background-position: 350px 700px; }
+            to { background-position: 300px 600px; }
         }
         
         h1, h2, h3 {
@@ -82,45 +42,33 @@ def apply_modern_theme():
         
         .hero-title {
             text-align: center;
-            font-size: 3.5rem !important;
+            font-size: 3.2rem !important;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 30%, #a78bfa 70%, #60a5fa 100%);
+            background: linear-gradient(135deg, #ffffff 20%, #a78bfa 60%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem !important;
-            letter-spacing: -1.5px;
-            animation: pulseTitle 4s ease-in-out infinite;
+            margin-bottom: 0.8rem !important;
+            letter-spacing: -1px;
         }
         
-        @keyframes pulseTitle {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(167,139,250,0.1)); }
-            50% { filter: drop-shadow(0 0 25px rgba(167,139,250,0.35)); }
-        }
-        
+        /* Safe Glassmorphism Cards */
         .game-card {
-            background: rgba(13, 13, 18, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
-            border-radius: 24px !important;
-            padding: 2.2rem !important;
-            backdrop-filter: blur(20px) saturate(160%) !important;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            background: rgba(15, 15, 25, 0.7) !important;
+            border: 1px solid rgba(255, 255, 255, 0.06) !important;
+            border-radius: 20px !important;
+            padding: 2rem !important;
+            backdrop-filter: blur(12px) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6) !important;
             margin-bottom: 1.5rem;
         }
         
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(167, 139, 250, 0.3) !important;
-            box-shadow: 0 30px 60px rgba(124, 58, 237, 0.15) !important;
-        }
-        
         .stat-block {
-            background: linear-gradient(145deg, rgba(20,20,30,0.4) 0%, rgba(10,10,15,0.6) 100%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
-            padding: 1.5rem;
+            background: rgba(20, 20, 35, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 1.2rem;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
         
         div[data-testid="stForm"] {
@@ -130,120 +78,100 @@ def apply_modern_theme():
         }
         
         .stTextInput input, .stNumberInput input {
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 14px !important;
+            background-color: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px !important;
             color: #ffffff !important;
-            padding: 0.75rem 1.2rem !important;
-            font-size: 1.05rem !important;
-            transition: all 0.3s !important;
+            padding: 0.7rem 1rem !important;
+            font-size: 1rem !important;
         }
         
         .stTextInput input:focus, .stNumberInput input:focus {
             border-color: #a78bfa !important;
-            background-color: rgba(167, 139, 250, 0.05) !important;
-            box-shadow: 0 0 20px rgba(167, 139, 250, 0.2) !important;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.2) !important;
         }
         
+        /* Premium Solid-State Gaming Buttons */
         .stButton > button {
-            background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #4f46e5 100%) !important;
-            background-size: 200% auto !important;
+            background: linear-gradient(135deg, #5046e5 0%, #7c3aed 100%) !important;
             color: #ffffff !important;
             border: none !important;
-            border-radius: 14px !important;
-            padding: 0.8rem 1.8rem !important;
+            border-radius: 12px !important;
+            padding: 0.75rem 1.5rem !important;
             font-weight: 600 !important;
-            font-size: 1.05rem !important;
-            letter-spacing: -0.3px;
-            transition: all 0.4s ease-in-out;
+            font-size: 1rem !important;
+            transition: all 0.2s ease-in-out;
             width: 100%;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25) !important;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3) !important;
         }
         
         .stButton > button:hover {
-            background-position: right center !important;
             transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(167, 139, 250, 0.4) !important;
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.45) !important;
+            border: none !important;
         }
         
         .stTabs [data-baseweb="tab-list"] {
-            background-color: rgba(255, 255, 255, 0.02) !important;
-            border-radius: 16px;
-            padding: 6px;
-            border: 1px solid rgba(255,255,255,0.03);
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            border-radius: 12px;
+            padding: 4px;
         }
         
         .stTabs [data-baseweb="tab"] {
             color: #94a3b8 !important;
-            font-weight: 500 !important;
-            padding: 0.6rem 1.5rem !important;
-            border-radius: 12px;
+            padding: 0.5rem 1.2rem !important;
         }
         
         .stTabs [aria-selected="true"] {
             background-color: rgba(167, 139, 250, 0.15) !important;
             color: #ffffff !important;
+            border-radius: 8px;
         }
         
         .success-banner {
-            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(4, 120, 87, 0.2) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 1.2rem; border-radius: 16px; color: #34d399; text-align: center;
-            font-weight: 600; font-size: 1.1rem; margin: 1.5rem 0;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid #10b981;
+            padding: 1rem; border-radius: 12px; color: #34d399; text-align: center;
+            font-weight: 600; margin: 1rem 0;
         }
         
         .error-banner {
-            background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, rgba(185, 28, 28, 0.2) 100%);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            padding: 1.2rem; border-radius: 16px; color: #f87171; text-align: center;
-            font-weight: 600; font-size: 1.1rem; margin: 1.5rem 0;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid #ef4444;
+            padding: 1rem; border-radius: 12px; color: #f87171; text-align: center;
+            font-weight: 600; margin: 1rem 0;
         }
         
         .hint-banner {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            padding: 1.5rem; border-radius: 16px; font-family: 'Space Grotesk', monospace;
-            font-size: 1.8rem; font-weight: 700; text-align: center; color: #a78bfa;
-            letter-spacing: 6px; margin: 1.5rem 0; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            padding: 1.2rem; border-radius: 12px; font-family: 'Space Grotesk', monospace;
+            font-size: 1.6rem; font-weight: 700; text-align: center; color: #a78bfa;
+            letter-spacing: 4px; margin: 1rem 0;
         }
         
         .achievement-badge {
-            background: linear-gradient(135deg, rgba(167, 139, 250, 0.08) 0%, rgba(99, 102, 241, 0.03) 100%);
-            border: 1px solid rgba(167, 139, 250, 0.2);
-            border-radius: 16px; padding: 1.2rem; text-align: center; font-weight: 600;
-            color: #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: rgba(167, 139, 250, 0.05);
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            border-radius: 12px; padding: 1rem; text-align: center; font-weight: 600; color: #ffffff;
         }
         
         .achievement-locked {
             background: rgba(255,255,255,0.01) !important;
-            border: 1px solid rgba(255,255,255,0.04) !important;
+            border: 1px solid rgba(255,255,255,0.03) !important;
             color: #475569 !important;
-            box-shadow: none !important;
         }
         
         [data-testid="stSidebar"] {
-            background-color: #050507 !important;
-            border-right: 1px solid rgba(255,255,255,0.03) !important;
+            background-color: #07070c !important;
+            border-right: 1px solid rgba(255,255,255,0.04) !important;
         }
     </style>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <video autoplay muted loop playsinline class="bg-video">
-        <source src="https://assets.mixkit.co/videos/preview/mixkit-game-controller-close-up-32812-large.mp4" type="video/mp4">
-    </video>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <img class="game-character char1" src="https://i.imgur.com/3KpR8QF.png" alt="Mario">
-    <img class="game-character char2" src="https://i.imgur.com/sE8jL7l.png" alt="Sonic">
-    <img class="game-character char3" src="https://i.imgur.com/MqJqZ3x.png" alt="Master Chief">
-    <img class="game-character char4" src="https://i.imgur.com/9eJQ3uL.png" alt="Kratos">
     """, unsafe_allow_html=True)
 
 def login_page():
     apply_modern_theme()
-    col1, col2, col3 = st.columns([1, 1.8, 1])
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown('<h1 class="hero-title">🔮 GAME ZONE ACCESS</h1>', unsafe_allow_html=True)
         st.markdown("<p style='text-align:center; color:#94a3b8; margin-bottom:2rem;'>Please log in or register to start playing.</p>", unsafe_allow_html=True)
@@ -268,8 +196,6 @@ def login_page():
                         st.session_state.total_games_played = user_record.get("total_games_played", 0)
                         st.session_state.game_history = user_record.get("game_history", [])
                         st.session_state.page = "main_menu"
-                        st.slots = {}  
-                        st.sidebar.empty()
                         st.rerun()
                     else:
                         show_toast("Login Failed: Incorrect username or password", "error")
