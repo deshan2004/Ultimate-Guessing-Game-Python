@@ -1,56 +1,58 @@
-# 🎮 The Ultimate Guessing Game Challenge
+# 🎮 Ultimate Guessing Game Arena
 
-A feature-rich, menu-driven Python application featuring three unique mini-games designed to test your logic and intuition. Built with clean code practices, robust input validation, and a modular architecture.
-
----
-
-## 🚀 Featured Games
-
-### 1. Number Guessing 🎯
-- **Levels**: Choose from **Easy** (1-50), **Medium** (1-100), or **Hard** (1-500).
-- **Adaptive Tries**: Attempts vary by difficulty—from unlimited to just 5 tries for the ultimate challenge.
-- **Smart Feedback**: Real-time "Too high" or "Too low" hints to guide your next move.
-
-### 2. Word Scramble (Wordman Style) 🔠
-- Guess a hidden word selected randomly from an internal library.
-- **Visual Progress**: After each guess, correctly positioned letters are revealed while others remain hidden (e.g., `P _ T _ O _`).
-- **Constraint**: You have a maximum of 5 attempts to save the word.
-
-### 3. Code Breaker (Mystery Code) 🔐
-- Crack a randomly generated **4-digit secret code** within 10 attempts.
-- **Logic-Based Hints**:
-  - Tells you if a digit is correct and in the **right place**.
-  - Tells you if a digit is correct but in the **wrong place**.
+An elite, ultra-modern web-based gaming suite featuring state-of-the-art cryptographic deduction, predictive algorithms, and real-time cloud data synchronization. Built with **Python Streamlit** and integrated with **MongoDB Atlas** for permanent player telemetry.
 
 ---
 
-## 📊 Core Functionality
-*   **Persistent Scoring**: Tracks your name, total points, and games won throughout the session.
-*   **Dynamic Rewards**: Points are awarded based on game complexity: 10 for Number Guess, 20 for Word Guess, and 30 for Code Breaker.
-*   **Error-Proof Input**: Built-in safeguards against invalid characters, symbols, or incorrect input lengths to ensure a smooth experience.
-*   **Modular Architecture**: Organized into specific functions for high readability and easy maintenance.
+## 🚀 Interactive Mini-Games
+
+### 1. Number Guessing Terminal 🎯
+* **Adaptive Difficulty Tiers**: 
+    * `Easy Matrix` (Range: 1-50 | Unlimited Tries | 5 Points)
+    * `Medium Grid` (Range: 1-100 | 10 Max Tries | 10 Points)
+    * `Hard Core` (Range: 1-500 | 5 Sharp Tries | 20 Points)
+* **Scalar Feedback Loop**: Real-time evaluation engines providing instantly calibrated "Too High" or "Too Low" vector alignment tracking.
+
+### 2. Lexicon Scramble (Wordman Engine) 🔠
+* Predict a cryptographically selected hidden term from a specialized multi-genre internal lexical database.
+* **Dynamic Visual Rendering**: Tracks and reveals perfectly matched character indices while isolating unmapped arrays (e.g., `P _ T _ O _`).
+* **Failure Threshold**: Enforces a strict 5-attempt boundary before logical expiration.
+
+### 3. Code Breaker (Quantum Cipher) 🔐
+* Crack an automated **4-digit secret passcode array** within a rigid 10-attempt container.
+* **Algorithmic Positional Telemetry**:
+    * Identifies exact digit accuracy positioned in the **correct array index**.
+    * Traces valid digit existence flagged in a **misplaced index array**.
 
 ---
 
-## 🛠️ Getting Started
+## 🗄️ Cloud Architecture & Backend Operations
+
+* **Permanent Cloud Persistence**: Seamlessly bound to a **MongoDB Atlas Cluster** to catalog, register, and store core player assets, global metrics, and active session history.
+* **Cryptographic Vault Access**: Secure credential verification implemented via single-way **SHA-256 password hashing protocols** for advanced user security.
+* **State Management Engine**: Uses Streamlit's `session_state` cache matrix to regulate runtime progress, maintain persistent UI parameters, and prevent structural data loss on hot-reloads.
+* **Fault-Tolerant TLS Layers**: Designed with automatic timeout routines, specialized database connection caching (`@st.cache_resource`), and dynamic SSL/TLS certificate handling to block runtime connection drops.
+* **Operational Telemetry Dashboard**: Complete profile rendering interface showing unlocked achievement badges, global performance tracking, and total victory data.
+
+---
+
+## 🛠️ Architecture & Tech Stack
+
+* **Frontend Interface**: Streamlit Web UI Framework (Space Black Theme Configuration)
+* **Database Engine**: MongoDB Atlas Cloud Clustering (`pymongo`)
+* **Security Protocols**: hashlib (SHA-256 Encryption Layers)
+* **Environment Vaulting**: Streamlit Secrets Management (`secrets.toml`)
+
+---
+
+## 🚀 Local Deployment Blueprint
 
 ### Prerequisites
-*   **Python 3.x** must be installed on your machine.
+* Python 3.8 or higher installed.
+* An active MongoDB Atlas cluster URI string.
 
-### Installation & Execution
-1.  **Download** the `guessing_game.py` file.
-2.  Open your **Terminal** or **VS Code**.
-3.  Navigate to the file directory and run:
-    ```bash
-    python guessing_game.py
-    ```
-
----
-
-## 🧠 Technical Highlights
-*   **Structured Programming**: Employs function-based modularity for clean logic separation[cite: 2].
-*   **Algorithm Efficiency**: Implements a two-pass logic check for the Code Breaker hints to ensure accurate matching[cite: 1].
-*   **Input Sanitization**: Uses `try-except` blocks and string methods to handle edge cases and prevent crashes[cite: 2].
-
----
-*Created with ❤️ by [DESHAN SIRIWARDHANA]*
+### 1. Clone & Setup Environment
+```bash
+# Create local credentials vault
+mkdir .streamlit
+touch .streamlit/secrets.toml
