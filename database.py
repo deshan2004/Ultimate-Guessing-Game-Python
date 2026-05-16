@@ -14,22 +14,18 @@ def get_database():
         return None
         
     try:
-        # tlsAllowInvalidCertificates=True යෙදීමෙන් SSL/Certificate errors මඟහැරේ
-        # admin.command('ping') එක ඉවත් කර ඇති නිසා Permissions (Role) දෝෂ ඇති නොවේ
         client = MongoClient(
             st.secrets["MONGO_URI"], 
             tlsAllowInvalidCertificates=True,
             serverSelectionTimeoutMS=5000
         )
         
-        # කෙලින්ම අපගේ Database එක තෝරාගෙන ඉදිරියට යයි
         db = client["guessing_game_db"]
         return db
     except Exception as e:
         st.error(f"❌ Database Connection Error: {e}")
         return None
 
-# Database එක සම්බන්ධ කරගැනීම
 db = get_database()
 
 def hash_password(password):
@@ -43,7 +39,6 @@ def create_user(username, password):
         
     users_collection = db["users"]
     
-    # දැනටමත් මේ නමින් කෙනෙක් ඉන්නවාදැයි බැලීම
     if users_collection.find_one({"username": username}):
         return False, "Username already exists!"
     

@@ -1,6 +1,6 @@
 # utils.py
 import streamlit as st
-import time  # 👈 මෙන්න මේක නැති ප්‍රශ්නයයි තිබ්බේ!
+import time  
 
 def init_session_state():
     """Initialize all session state variables"""
@@ -39,7 +39,6 @@ def record_game_result(win, points_earned, game_name):
         st.session_state.total_score += points_earned
         st.session_state.game_history.append(game_name)
     
-    # පරිශීලකයා ලොග් වී ඇත්නම් MongoDB එකට දත්ත යැවීම
     if st.session_state.player_name:
         try:
             from database import update_user_stats
