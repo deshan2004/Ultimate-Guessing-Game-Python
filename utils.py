@@ -1,6 +1,6 @@
 # utils.py
 import streamlit as st
-import time
+import time  # 👈 මෙන්න මේක නැති ප්‍රශ්නයයි තිබ්බේ!
 
 def init_session_state():
     """Initialize all session state variables"""
@@ -63,13 +63,15 @@ def show_toast(message, type="success"):
     time.sleep(0.5)
 
 def reset_game_state():
-    """Reset current game state"""
+    """Reset dynamic game parameters securely without touching profile details"""
     st.session_state.game_started = False
     st.session_state.secret_number = None
-    st.session_state.secret_word = None
-    st.session_state.secret_code = None
-    st.session_state.code_history = []
-    st.session_state.word_hint = None
+    st.session_state.attempts_left = 0
     st.session_state.num_tries = 0
+    st.session_state.secret_word = None
     st.session_state.word_attempts = 0
+    st.session_state.word_hint = None
+    st.session_state.secret_code = None
     st.session_state.code_attempts = 0
+    st.session_state.code_history = []
+    st.session_state.difficulty = None
