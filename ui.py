@@ -9,7 +9,7 @@ from games import (
 )
 
 def apply_modern_theme():
-    """Apply clean, professional styling"""
+    """Apply clean, professional styling with black background & animations"""
     st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -18,9 +18,34 @@ def apply_modern_theme():
             font-family: 'Inter', sans-serif;
         }
         
+        /* Animated black background with subtle moving stars */
         .stApp {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-attachment: fixed;
+            background: #000000;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Stars animation */
+        .stApp::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                        radial-gradient(1px 1px at 80px 150px, #ffffff, rgba(0,0,0,0));
+            background-repeat: no-repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: starsMove 40s linear infinite;
+            z-index: 0;
+        }
+        
+        @keyframes starsMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 500px 500px, 300px 400px; }
         }
         
         /* Main container */
@@ -28,9 +53,11 @@ def apply_modern_theme():
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
         
-        /* Page title */
+        /* Page title with glow animation */
         .page-title {
             text-align: center;
             font-size: 2.5rem;
@@ -38,128 +65,20 @@ def apply_modern_theme():
             color: #ffffff;
             margin-bottom: 2rem;
             letter-spacing: -0.5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: fadeInDown 0.8s ease-out, glowPulse 3s infinite;
         }
         
-        /* Modern card */
-        .modern-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 1.8rem;
-            margin: 1rem 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(0,0,0,0.05);
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 5px rgba(255,255,255,0.3); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+            100% { text-shadow: 0 0 5px rgba(255,255,255,0.3); }
         }
         
-        .modern-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        
-        /* Stats card */
-        .stats-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            padding: 1.5rem;
-            color: white;
-            text-align: center;
-            margin: 1rem 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .stats-card h2, .stats-card h3, .stats-card p {
-            color: white;
-            margin: 0.5rem 0;
-        }
-        
-        /* Buttons */
-        .stButton > button {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            width: 100%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .stButton > button:hover {
-            background: #4338ca;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        
-        .stButton > button:active {
-            transform: translateY(0);
-        }
-        
-        /* Input fields */
-        .stTextInput > div > div > input,
-        .stNumberInput > div > div > input {
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-        
-        .stTextInput > div > div > input:focus,
-        .stNumberInput > div > div > input:focus {
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
-        }
-        
-        /* Metrics */
-        .stMetric {
-            background: #f9fafb;
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #e5e7eb;
-        }
-        
-        .stMetric label {
-            font-weight: 600;
-            color: #374151;
-        }
-        
-        .stMetric div {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #4f46e5;
-        }
-        
-        /* Success/Error messages */
-        .success-message {
-            background: #10b981;
-            color: white;
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 600;
-            margin: 1rem 0;
-            animation: slideIn 0.3s;
-        }
-        
-        .error-message {
-            background: #ef4444;
-            color: white;
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 600;
-            margin: 1rem 0;
-            animation: slideIn 0.3s;
-        }
-        
-        @keyframes slideIn {
+        @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -167,34 +86,219 @@ def apply_modern_theme():
             }
         }
         
-        /* Info boxes */
-        .info-box {
-            background: #eff6ff;
-            border-left: 4px solid #4f46e5;
-            padding: 1rem;
-            border-radius: 8px;
+        /* Modern card – dark glassmorphism */
+        .modern-card {
+            background: rgba(30, 30, 46, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 1.8rem;
             margin: 1rem 0;
-            color: #1e293b;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(40, 40, 60, 0.9);
+        }
+        
+        /* Stats card gradient with animation */
+        .stats-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 24px;
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            margin: 1rem 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInScale 0.5s ease-out;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        
+        .stats-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.6);
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .stats-card h2, .stats-card h3, .stats-card p {
+            color: white;
+            margin: 0.5rem 0;
+        }
+        
+        /* Buttons with neon pulse effect */
+        .stButton > button {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(79,70,229,0.3);
+            animation: fadeInUp 0.5s;
+        }
+        
+        .stButton > button:hover {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79,70,229,0.5);
+        }
+        
+        .stButton > button:active {
+            transform: translateY(1px);
+        }
+        
+        /* Input fields – dark style */
+        .stTextInput > div > div > input,
+        .stNumberInput > div > div > input {
+            border-radius: 40px;
+            border: 1px solid #333;
+            background: #1e1e2f;
+            color: white;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .stTextInput > div > div > input:focus,
+        .stNumberInput > div > div > input:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+            background: #2a2a3e;
+        }
+        
+        /* Metrics cards */
+        .stMetric {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+        
+        .stMetric:hover {
+            border-color: #7c3aed;
+            box-shadow: 0 0 12px rgba(124,58,237,0.3);
+        }
+        
+        .stMetric label {
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        
+        .stMetric div {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+        
+        /* Success/Error messages with slide & pulse */
+        .success-message {
+            background: linear-gradient(95deg, #10b981, #059669);
+            color: white;
+            padding: 1rem;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            margin: 1rem 0;
+            animation: slideIn 0.4s, pulse 1s ease-out;
+        }
+        
+        .error-message {
+            background: linear-gradient(95deg, #ef4444, #dc2626);
+            color: white;
+            padding: 1rem;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            margin: 1rem 0;
+            animation: slideIn 0.4s, shake 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%,100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Info box */
+        .info-box {
+            background: #1e293b;
+            border-left: 4px solid #a78bfa;
+            padding: 1rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            color: #f1f5f9;
+            transition: 0.2s;
         }
         
         /* Progress bar */
         .stProgress > div > div {
-            background: linear-gradient(90deg, #4f46e5, #818cf8);
+            background: linear-gradient(90deg, #a78bfa, #c084fc);
             border-radius: 20px;
         }
         
         /* Radio buttons */
         .stRadio > div {
-            background: #f9fafb;
+            background: #1e1e2f;
             padding: 1rem;
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            border: 1px solid #333;
+            color: white;
         }
         
-        /* Achievement badges */
+        /* Achievement badges with hover scale */
         .achievement-badge {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 1rem;
             margin: 0.5rem;
             text-align: center;
@@ -202,48 +306,56 @@ def apply_modern_theme():
             color: #92400e;
             transition: all 0.2s;
             border: 1px solid #fcd34d;
+            animation: fadeInUp 0.3s;
+        }
+        
+        .achievement-badge:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
         }
         
         .achievement-locked {
-            background: #f3f4f6;
-            border: 1px solid #d1d5db;
-            color: #6b7280;
+            background: #2d2d3f;
+            border: 1px solid #4b5563;
+            color: #9ca3af;
         }
         
         /* Footer */
         .footer {
             text-align: center;
-            color: #ffffff;
+            color: #a1a1aa;
             margin-top: 3rem;
             padding: 1.5rem;
             font-size: 0.875rem;
-            opacity: 0.9;
+            animation: fadeInUp 0.8s;
         }
         
-        /* Sidebar */
+        /* Sidebar dark */
         .css-1d391kg, .css-12oz5g0 {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
         }
         
         hr {
             margin: 1rem 0;
             border: none;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid #2d3748;
         }
         
         /* Game hint area */
         .game-hint {
-            background: #f0fdf4;
+            background: #0f172a;
             padding: 1rem;
-            border-radius: 12px;
+            border-radius: 20px;
             font-family: monospace;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: center;
             margin: 1rem 0;
+            color: #e2e8f0;
+            letter-spacing: 2px;
         }
         
-        /* Responsive adjustments */
+        /* Responsive */
         @media (max-width: 768px) {
             .page-title {
                 font-size: 1.8rem;
@@ -251,6 +363,11 @@ def apply_modern_theme():
             .modern-card {
                 padding: 1.2rem;
             }
+        }
+        
+        /* Additional animation for sidebar stats */
+        .stats-card {
+            animation: glowPulse 4s infinite;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -280,7 +397,7 @@ def login_page():
                         from database import authenticate_user
                         user_record = authenticate_user(username, password)
                         if user_record:
-                            # MongoDB දත්ත Session State එකට ලබාදීම
+                            # MongoDB data to Session State
                             st.session_state.player_name = user_record["username"]
                             st.session_state.total_score = user_record.get("total_score", 0)
                             st.session_state.games_won = user_record.get("games_won", 0)
